@@ -96,7 +96,9 @@ class SortingRobot:
         '''
         find the min card and picks it up then returns to None
         '''
-        while self._position != (len(self._list) - 1): #only compares to the penultimate element 
+        # for _ in range(self._position, len(self._list)): This is approx 0.02s slower
+
+        while self._position != (len(self._list) - 1): #only compares to the penultimate element but finds the min value in that subset
             if self.compare_item() == 1:
                 self.swap_item()
                 self.move_right()
@@ -128,10 +130,10 @@ class SortingRobot:
         self.swap_item()
 
         while self._list[len(self._list) - 1] != None: #will run until everything is sorted and the last element is None
-            self.min_search()
-            self.swap_item()
-            self.move_right()
-            self.swap_item()
+            self.min_search() # find min value and returns to none
+            self.swap_item() #swaps none with min value
+            self.move_right() #moves forward 1 with sorted list behind it
+            self.swap_item() #picks up card and starts sorting process again
     
         self.swap_item() #will swap the last element from None to the max of the array
 
