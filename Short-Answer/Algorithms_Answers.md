@@ -40,9 +40,11 @@ Algorithm:
             go to floor middle - (n - middle) // 2 story of the building and drop again
         else if the egg doesn't break:
             go to the floor (n -middle) // 2  + middle story of the building and drop again
-        
+    repeat with recalculated values for n and middle until there are no floors left, the last floor the egg was dropped and survived is f
 
     when you shift floors, the floors in the direction you didn't go in are excluded. Thus you have a
         new subbuilding and the top floor n and middle have to be recalculated. Once you have the new values you can
         use the above algorithm to continue checking out floors until you're not left with any other floors. The last floor
         that the egg didn't break is the value of f 
+
+The run time complexity of this solution is O(log n)
