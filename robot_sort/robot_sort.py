@@ -92,13 +92,48 @@ class SortingRobot:
         """
         return self._light == "ON"
 
+    def min_search(self):
+        '''
+        find the min card and picks it up then returns to None
+        '''
+        while self._position != (len(self._list) - 1): #only compares to the penultimate element 
+            if self.compare_item() == 1:
+                self.swap_item()
+                self.move_right()
+            else:
+                self.move_right()
+
+
+        if self.compare_item() == 1: #compares the last item
+            self.swap_item()
+            self.move_right()
+        else:
+            self.move_right()
+
+        while self._list[self._position] != None: #returns to the empty position
+            self.move_left()
+
     def sort(self):
         """
         Sort the robot's list.
         """
         # Fill this out
-        pass
+        '''
+        Selection Sort:
+            first element will be the picked up
+            compare everything to the right and every card smaller will be swapped until at the end of the array
+            find None and replace it with the now min card
+            take a step to the right and repeat 
+        '''
+        self.swap_item()
 
+        while self._list[len(self._list) - 1] != None: #will run until everything is sorted and the last element is None
+            self.min_search()
+            self.swap_item()
+            self.move_right()
+            self.swap_item()
+    
+        self.swap_item() #will swap the last element from None to the max of the array
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
