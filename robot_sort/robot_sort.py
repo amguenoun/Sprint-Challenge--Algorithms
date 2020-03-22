@@ -99,7 +99,7 @@ class SortingRobot:
         # for _ in range(self._position, len(self._list)): This is approx 0.02s slower
 
         while self.can_move_right(): #only compares to the penultimate element but finds the min value in that subset
-            if self.compare_item() == 1:
+            if self.compare_item() == 1: #checks to see if num in hand is bigger, if yes then swaps it to get min
                 self.swap_item()
                 self.move_right()
             else:
@@ -108,7 +108,7 @@ class SortingRobot:
 
         if self.compare_item() == 1: #compares the last item
             self.swap_item()
-        elif self.compare_item() == None:
+        elif self.compare_item() == None:#checks to see if we're at the last element to be sorted
             self.set_light_on()
 
         while self.compare_item() != None: #returns to the empty position
