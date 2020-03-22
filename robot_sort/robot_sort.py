@@ -92,13 +92,49 @@ class SortingRobot:
         """
         return self._light == "ON"
 
+    def min_search(self):
+        '''
+        find the min card and picks it up then returns to None
+        '''
+        # for _ in range(self._position, len(self._list)): This is approx 0.02s slower
+
+        while self.can_move_right(): #only compares to the penultimate element but finds the min value in that subset
+            if self.compare_item() == 1: #checks to see if num in hand is bigger, if yes then swaps it to get min
+                self.swap_item()
+                self.move_right()
+            else:
+                self.move_right()
+
+
+        if self.compare_item() == 1: #compares the last item
+            self.swap_item()
+        elif self.compare_item() == None:#checks to see if we're at the last element to be sorted
+            self.set_light_on()
+
+        while self.compare_item() != None: #returns to the empty position
+            self.move_left()
+
     def sort(self):
         """
         Sort the robot's list.
         """
         # Fill this out
-        pass
+        '''
+        Selection Sort:
+            first element will be the picked up
+            compare everything to the right and every card smaller will be swapped until at the end of the array
+            find None and replace it with the now min card
+            take a step to the right and repeat 
+        '''
+        self.swap_item()
 
+        while not self.light_is_on(): #will run until everything is sorted and the last element is None
+            self.min_search() # find min value and returns to none
+            self.swap_item() #swaps none with min value
+            self.move_right() #moves forward 1 with sorted list behind it
+            self.swap_item() #picks up card and starts sorting process again
+    
+        self.swap_item() #will swap the last element from None to the max of the array
 
 if __name__ == "__main__":
     # Test our your implementation from the command line
